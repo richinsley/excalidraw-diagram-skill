@@ -13,7 +13,12 @@
   <div id="root"></div>
 
   <script type="module">
-    import { exportToSvg } from "https://esm.sh/@excalidraw/excalidraw?bundle";
+    // Pinned: @excalidraw/excalidraw@0.18.1 with a deps override for
+    // @braintree/sanitize-url. esm.sh's resolution of "latest" pulls
+    // @braintree/sanitize-url@6.0.2, whose constants.mjs currently 404s
+    // on esm.sh and breaks module load. Forcing v7 resolves to a clean
+    // bundle. Drop the deps= override once the upstream 404 is fixed.
+    import { exportToSvg } from "https://esm.sh/@excalidraw/excalidraw@0.18.1?bundle&deps=@braintree/sanitize-url@7";
 
     window.renderDiagram = async function(jsonData) {
       try {
